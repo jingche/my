@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class Listp1114 {
     private Integer id;
+    
+    private Date   date;
 
     private Integer Passed;
 
@@ -33,6 +35,14 @@ public class Listp1114 {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    
+    public Date getdate() {
+    	return date;
+    }
+    
+    public void setdate(Date date) {
+    	this.date=date;
     }
 
     public Integer getPassed() {

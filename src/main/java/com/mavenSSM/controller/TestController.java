@@ -39,6 +39,7 @@ public class TestController {
 	public String toAbout() {
 		return "about-us";
 	}
+	
 	@RequestMapping(value="getUser")
 	@ResponseBody
 	public User getUser(){

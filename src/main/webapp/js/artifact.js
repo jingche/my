@@ -105,6 +105,9 @@ $(function(){
 
         //  验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
          $("#cancelButton").click();
+         
+       //成功提交后切换模态框数据
+         $("#addGroup").find("input").val("");
      });
      $("#sureEdit").bind("click",function(){
           $("#editError").text("").hide();

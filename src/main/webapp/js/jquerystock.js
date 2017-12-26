@@ -1,4 +1,4 @@
-$(function () {
+  $(function () {
 
       $('#edu2').highcharts('StockChart',{
        chart:{
@@ -73,7 +73,7 @@ $(function () {
                },
 
                labels: {
-               format: '{value} 个',
+               format: '{value} ',
                style: {
                    color: '#000'
                  },
@@ -250,7 +250,7 @@ $(function () {
                ]]
            },
               tooltip: {
-                  valueSuffix: ' 个'
+                  valueSuffix: ' amount'
               }
           }, {
               name: 'Failed TR',
@@ -269,7 +269,7 @@ $(function () {
                ]]
            },
               tooltip: {
-                  valueSuffix: ' 个'
+                  valueSuffix: ' amount'
               }
 
           }, {
@@ -289,7 +289,7 @@ $(function () {
                ]]
            },
               tooltip: {
-                  valueSuffix: ' 个'
+                  valueSuffix: ' amount'
               }
 
           },{
@@ -309,7 +309,7 @@ $(function () {
                ]]
            },
               tooltip: {
-                  valueSuffix: ' 个'
+                  valueSuffix: ' amount'
               }
 
           }, {

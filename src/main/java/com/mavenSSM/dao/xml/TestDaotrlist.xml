@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mavenSSM.dao.TestDaotrlist">
+
+	<resultMap id="trlistMap" type="com.mavenSSM.model.Trlist">
+		<id property="id" column="id" />
+  		<result property="Eriref" column="Eriref" />
+  		<result property="Registered_by" column="Registered_by" />
+  		<result property="Registered_date" column="Registered_date" />
+  		<result property="Finished_date" column="Finished_date" />
+  		<result property="Turnaround_time" column="Turnaround_time" />
+  		<result property="Answer_code" column="Answer_code" />
+  		<result property="Valid" column="Valid" />
+  		<result property="Heading" column="Heading" />
+  	</resultMap>
+  	
+  	<select id="getTrlist" resultMap="trlistMap">
+  		SELECT  Eriref, Registered_by, Registered_date,Finished_date,Turnaround_time,Answer_code,Valid, Heading FROM trlist
+  	</select>
+
+</mapper>
