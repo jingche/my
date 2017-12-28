@@ -1,31 +1,31 @@
+var jsonObj = null;
+var headName = new Array("Owner","Started date","Finished date","Used days","Category","Description");
+var seqlist = new Array("id","owner","started_date","finished_date","used_days","category","description");
 $(function(){
     //数据，实际情况是从后台获取的，格式json
-      var data = [{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAIA ","Started date":" 2017/08/06","Finished date":"2017/08/11","Used Days":"5","Category":"Bug", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"4 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"8 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement", "Description":"sv4 jcat improvement#1382593"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"10","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"12 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"8 ","Category":"Improvement", "Description":"sv4 jcat improvement#1382593 "
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"8 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"8 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement", "Description":" sv4 jcat improvement#1382593"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement",  "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement", "Description":" sv4 jcat improvement#1382593"
-},{"Ower":"EYUAMIA ","Started date":" 2017/08/09","Finished date":"2017/08/12","Used Days":"7 ","Category":"Improvement", "Description":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-}];
-          //在指定的table里根据要求制表，第一个参数是数据第二个是表格属性具体看createTable的defaults有具体注释
-         $("#tableArea").createTable(data,{
-              rows:10
-           });
+      
+          $.ajax({
+        	  type:"POST",
+        	  url:"/mavenSSM/Artifacts/getAllList",
+        	  dataType:"json",
+        	  success: function(data){
+        		  jsonObj=data;
+        		  $("#tableArea").createTable(data,{
+        			  rows:10,
+        			  needKey:true,
+                      headName:headName,
+                      needseqlist: true,
+                      seqlist: seqlist,
+        			  link:true,
+        			  linkcols:"description",
+        			  linkdata:"https://openalm.lmera.ericsson.se/plugins/tracker/?aid=",
+        		   
+        		 });
+        		  
+        	  }
+              
+        	  
+          });
 
            $("#selectpage").bind("change",function(){
             var r = parseInt($(this).val());
@@ -40,14 +40,14 @@ $(function(){
           $("#inputNumber").bind("input",function(){
             var  r=parseInt($("#selectpage").val());
               if($("#selectpage").val()=="All"){
-               r= data.length ;
+               r= parseInt(jsonObj.length) ;
               }
             var value = $(this).val();
             var temp = [];
-            for(var i = 0;i < data.length;i++){
-              for(x in data[i]){
-                if(data[i][x].indexOf(value) > -1){
-                  temp.push(data[i]);
+            for(var i = 0;i < jsonObj.length;i++){
+              for(x in jsonObj[i]){
+                if(x != "id" && jsonObj[i][x] != null && jsonObj[i][x].indexOf(value) > -1) {
+                  temp.push(jsonObj[i]);
                   break;
                 }
               }
@@ -82,7 +82,8 @@ $(function(){
 $(function(){
      $("#sureAdd").bind("click",function(){
           $("#addError").text("").hide();
-          //$("#editdate3").trigger(" blur");
+          $("#time3").trigger(" blur");
+         
           var $inputs =$("#addGroup").find("input");
           if($inputs[0].value== ""){
             showError("Owner can not be null !");
@@ -101,19 +102,45 @@ $(function(){
             showError(" Description can not be null !");
             return false;
           }
-
-
-        //  验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
-         $("#cancelButton").click();
-         
-       //成功提交后切换模态框数据
-         $("#addGroup").find("input").val("");
+          var datas = {"id": 0,"owner":$inputs[0].value,"started_date":$inputs[1].value,"finished_date":$inputs[2].value,
+        		  "used_days":$inputs[3].value,"category":$("#Select2").find(':selected').text(),"description":$inputs[4].value};
+          
+          var cpage = parseInt($("#currentPage").val());
+          $.ajax({
+        	  type:"POST",
+        	  url:"/mavenSSM/Artifacts/addItem",
+        	  dataType:"json",
+        	  data:JSON.stringify(datas),
+        	  contentType:"application/json",
+        	  success:function(data){
+        		  datas.id=data.id;
+        		  jsonObj.push(datas);
+        		  $("#tableArea").createTable(jsonObj,{
+        			  rows:10,
+                      needKey:true,
+                      headName:headName,
+                      needseqlist: true,
+                      seqlist: seqlist,
+                      link: true,
+                      linkcols:"description",
+                      linkdata: "https://openalm.lmera.ericsson.se/plugins/tracker/?aid=",
+                      pages:cpage
+        		  });
+        		//  验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
+        	         $("#cancelButton").click();
+        	         
+        	       //成功提交后切换模态框数据
+        	         $("#addGroup").find("input").val("");
+        	  }
+        	  
+          });
      });
      $("#sureEdit").bind("click",function(){
           $("#editError").text("").hide();
           $("#editdate3").trigger(" blur");
-          /*var $inputs =$("#EditTable").find("input");
-          if($inputs[0].value== ""){
+           
+          var $inputs =$("#EditTable").find("input");
+          /*if($inputs[0].value== ""){
             showError("Eriref can not be null !");
             return false;
           }
@@ -133,12 +160,47 @@ $(function(){
             showError(" Heading can not be null !");
             return false;
           }*/
+          var datas = {"id": $("#editID").val(),"owner":$inputs[0].value,"started_date":$inputs[1].value,"finished_date":$inputs[2].value,
+        		  "used_days":$inputs[3].value,"category":$("#Select2").find(':selected').text(),"description":$inputs[4].value};
+          var cpage = parseInt($("#currentPage").val());
+          $.ajax({
+        	  type: "POST",
+        	  url: "/mavenSSM/Artifacts/editItem",
+        	  data: JSON.stringify(datas),
+        	  contentType:"application/json",
+        	  dataType: "json",
+        	  success: function(data){
+        		  changeItem(datas);
+        		  $("#tableArea").createTable(jsonObj,{
+        			  rows:10,
+                      needKey:true,
+                      headName:headName,
+                      needseqlist: true,
+                      seqlist: seqlist,
+                      link: true,
+                      linkcols:"description",
+                      linkdata: "https://openalm.lmera.ericsson.se/plugins/tracker/?aid=",
+                      pages:cpage
+                  });
+        		  //验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
+        	         $("#cancelEdit").click();  
+        		   
+        	  }
+          });
 
-        //验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
-         $("#cancelEdit").click();
+        
      });
 
 });
+
+function changeItem(data){
+	for(var i=0; i< jsonObj.length;i++){
+		if(jsonObj[i].id==data.id){
+			jsonObj[i]=data;
+			break;
+		}
+	}
+}
 
 $(function(){
          $("#changeUser").bind("click",function(){
@@ -148,6 +210,7 @@ $(function(){
             $("#tableArea").bind("click",function(evt){
                  var which = evt.target;
                  var  $tr = $(which).closest("tr");
+                 $("#editID").val($tr.find("input:hidden").val());
                  createEditModel($tr);
                  $("#edit").trigger("click");
             });

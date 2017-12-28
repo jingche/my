@@ -23,14 +23,8 @@ public class TestController {
 	public String toIndex() {
 		return "index";
 	}
-	@RequestMapping(value="TR_list")
-	public String toTRlist() {
-		return "TR_list";
-	}
-	@RequestMapping(value="Artifacts")
-	public String toArtifacts() {
-		return "Artifacts";
-	}
+	 
+	 
 	@RequestMapping(value="testing")
 	public String toTesting() {
 		return "testing";

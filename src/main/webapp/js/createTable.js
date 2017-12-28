@@ -23,7 +23,10 @@
 			maxcols: 0,//一行最大几列，0不开启
 			link: false,
 			linkcols: 0,
-            linkdata: ""
+            linkdata: "",
+            nullempty: true,
+            needseqlist:false,
+            seqlist: new Array()
 		}
 
 		var args = $.extend({},defaults,options);
@@ -64,11 +67,20 @@
 				$thead.append("<th>日期</th>");
 			}
 			var heads = new Array();
+			var needkey = args["needKey"];
+			var count = 0;
 			if(headName.length == 0){
 				for(i in jsonObj[0]){
-					if(ignoreNull && jsonObj[0][i] == null)
+					if(ignoreNull && jsonObj[0][i] == null){
+						count++;
 						continue;
+					}
+					if(count == 0 && needkey){
+						count++
+						continue;
+					}
 					//$thead.append("<th>" + i + "</th>");
+					count++;
 					heads.push("<th>" + i + "</th>");
 				}
 			}else{
@@ -84,6 +96,8 @@
 
 		//@ param page 第几页
 		function createPage(area, page){
+			var needseqlist = args["needseqlist"];
+            var seqlist = args["seqlist"];
 			var $tbody = area.find("tbody");
 			var ignoreNull = args["ignoreNull"];
 			var needKey = args["needKey"];
@@ -91,6 +105,7 @@
 			var link = args["link"];
 			var linkcols = args["linkcols"];
 			var linkdata = args["linkdata"];
+			var empty = args["nullempty"];
 
 			var needDate = args["needDate"];
 			var now = "";
@@ -128,23 +143,51 @@
 				}
 				var count = 0;
 				var tds = new Array();
-				for (x in jsonObj[i]) {
-				    if (max != 0 && count > max)
-				        break;
-					if(ignoreNull && jsonObj[i][x] == null)
-						continue;
-				    //$tr.append("<td>" + jsonObj[i][x] + "</td>");
-					if (needKey && count == 0) {
-					    tds.push("<td><input type=hidden value=" + jsonObj[i][x] + " />");
-					} else if (needKey && count == 1) {
-					    tds.push(jsonObj[i][x] + "</td>");
-					} else if (link && count == linkcols && jsonObj[i][linkdata] != null && jsonObj[i][linkdata] != "") {
-					    tds.push("<td>" + jsonObj[i][x] + "<br/><a href='" + jsonObj[i][linkdata] + "' target=_blank >文件</a>" + "</td>");
-					} else {
-					    tds.push("<td>" + jsonObj[i][x] + "</td>");
+				if(needseqlist){
+					for(var t = 0;t < seqlist.length;t++){
+						if (max != 0 && count > max)
+					        break;
+						if(ignoreNull && jsonObj[i][seqlist[t]] == null)
+							continue;
+					    //$tr.append("<td>" + jsonObj[i][x] + "</td>");
+						if (needKey && count == 0) {
+						    tds.push("<td><input type=hidden value=" + jsonObj[i][seqlist[t]] + " />");
+						} else if (needKey && count == 1) {
+							if(link && linkcols==seqlist[t] && linkdata!=null && linkdata!=""){
+								tds.push("<a href='" + linkdata + jsonObj[i][seqlist[t]]+"' target=_blank >"+jsonObj[i][seqlist[t]]+"</a>" + "</td>");
+							}else
+								tds.push(jsonObj[i][seqlist[t]] + "</td>");
+						} else if (link && linkcols==seqlist[t] && linkdata!=null && linkdata!="") {
+						    tds.push("<td>" + "<a href='" + linkdata + jsonObj[i][seqlist[t]]+"' target=_blank >"+jsonObj[i][seqlist[t]]+"</a>" + "</td>");
+						}else if(empty && jsonObj[i][seqlist[t]] == null){
+							tds.push("<td>&nbsp;</td>");
+						} else {
+						    tds.push("<td>" + jsonObj[i][seqlist[t]] + "</td>");
+						}
+						count++;
 					}
-					count++;
+				}else{
+					for (x in jsonObj[i]) {
+					    if (max != 0 && count > max)
+					        break;
+						if(ignoreNull && jsonObj[i][x] == null)
+							continue;
+					    //$tr.append("<td>" + jsonObj[i][x] + "</td>");
+						if (needKey && count == 0) {
+						    tds.push("<td><input type=hidden value=" + jsonObj[i][x] + " />");
+						} else if (needKey && count == 1) {
+						    tds.push(jsonObj[i][x] + "</td>");
+						} else if (link && count == linkcols && linkdata!=null && linkdata!="") {
+						    tds.push("<td>" + "<a href='" + linkdata + jsonObj[i][seqlist[t]] + "' target=_blank >"+jsonObj[i][seqlist[t]]+"</a>" + "</td>");
+						}else if(empty && jsonObj[i][x] == null){
+							tds.push("<td>&nbsp;</td>");
+						} else {
+						    tds.push("<td>" + jsonObj[i][x] + "</td>");
+						}
+						count++;
+					}
 				}
+	
 				var less = args["lessLength"];
 				if (less != 0) {
 				    if(needKey)count--;

@@ -1,12 +1,27 @@
+var jsonObj = null;
+var headName = new Array("Eriref","Registered By","Registered Date","Finished Date","Turnaround Time","Answer Code","Valid","Heading");
+var seqlist = new Array("id","eriref","registered_by","registered_date","finished_date","turnaround_time","answer_code","valid","heading");
 $(function(){
     //数据，实际情况是从后台获取的，格式json
-      var data = [{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"
-},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" B18","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually","Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"
-},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" B18","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"}];
-          //在指定的table里根据要求制表，第一个参数是数据第二个是表格属性具体看createTable的defaults有具体注释
-         $("#tableArea").createTable(data,{
-              rows:10
-           });
+	
+          $.ajax({
+            type: "POST",
+            url: "/mavenSSM/TR_list/getAllList",
+            dataType: "json",
+            success: function(data){
+            	jsonObj = data;
+                $("#tableArea").createTable(data,{
+                    rows:10,
+                    needKey:true,
+                    headName:headName,
+                    needseqlist: true,
+                    seqlist: seqlist,
+                    link: true,
+                    linkcols:"eriref",
+                    linkdata: "https://mhweb.ericsson.se/TREditWeb/faces/oo/object.xhtml?mode=VIEW&eriref=",
+                });
+            }
+          });
 
            $("#selectpage").bind("change",function(){
             var r = parseInt($(this).val());
@@ -21,14 +36,14 @@ $(function(){
           $("#inputNumber").bind("input",function(){
             var  r=parseInt($("#selectpage").val());
             if($("#selectpage").val()=="All"){
-             r=parseInt(data.length);
+             r=parseInt(jsonObj.length);
             }
             var value = $(this).val();
             var temp = [];
-            for(var i = 0;i < data.length;i++){
-              for(x in data[i]){
-                if(data[i][x].indexOf(value) > -1){
-                  temp.push(data[i]);
+            for(var i = 0;i < jsonObj.length;i++){
+              for(x in jsonObj[i]){
+                if(x != "id" && jsonObj[i][x] != null && jsonObj[i][x].indexOf(value) > -1){
+                  temp.push(jsonObj[i]);
                   break;
                 }
               }
@@ -64,7 +79,7 @@ $(function(){
 $(function(){
      $("#sureAdd").bind("click",function(){
           $("#addError").text("").hide();
-          //$("#time3").trigger(" blur");
+          $("#time3").trigger(" blur");
           var $inputs =$("#addGroup").find("input");
           if($inputs[0].value== ""){
             showError("Eriref can not be null !");
@@ -86,16 +101,46 @@ $(function(){
             showError(" Heading can not be null !");
             return false;
           }
-
-        //  验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
-         $("#cancelButton").click();
+          var datas = {"id": 0,"eriref":$inputs[0].value,"registered_by":$inputs[1].value,"registered_date":$inputs[2].value,
+        		  "finished_date":$inputs[3].value,"turnaround_time":$inputs[4].value,
+        		  "answer_code":$inputs[5].value,"valid":$inputs[6].value,"heading":$inputs[7].value};
+          
+     	  var cpage = parseInt($("#currentPage").val());
+          $.ajax({
+        	  type:"POST",
+        	  url: "/mavenSSM/TR_list/addItem",
+        	  dataType: "json",
+        	  data:JSON.stringify(datas),
+        	  contentType:"application/json",
+        	  success:function(data){
+        		  datas.id = data.id;
+        		  jsonObj.push(datas);
+        		  $("#tableArea").createTable(jsonObj,{
+        			  rows:10,
+                      needKey:true,
+                      headName:headName,
+                      needseqlist: true,
+                      seqlist: seqlist,
+                      link: true,
+                      linkcols:"eriref",
+                      linkdata: "https://mhweb.ericsson.se/TREditWeb/faces/oo/object.xhtml?mode=VIEW&eriref=",
+                      pages:cpage
+                  });
+        		  $("#cancelButton").click();
+        		  $("#addGroup").find("input").val("");
+        	  }
+          });
          
-       //成功提交后切换模态框数据
-         $("#addGroup").find("input").val("");
+
      });
-     $("#sureEdit").bind("click",function(){
+      
+     $("#sureEdit").bind("click", function(){
           $("#editError").text("").hide();
           $("#editdate3").trigger(" blur");
+          var $inputs= $("#EditTable").find("input");
+          var datas = {"id": $("#editID").val(),"eriref":$inputs[0].value,"registered_by":$inputs[1].value,"registered_date":$inputs[2].value,
+        		  "finished_date":$inputs[3].value,"turnaround_time":$inputs[4].value,
+        		  "answer_code":$inputs[5].value,"valid":$inputs[6].value,"heading":$inputs[7].value};
           /*var $inputs =$("#EditTable").find("input");
           if($inputs[0].value== ""){
             showError("Eriref can not be null !");
@@ -119,10 +164,41 @@ $(function(){
           }*/
 
         //  验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
-         $("#cancelEdit").click();
+          var cpage = parseInt($("#currentPage").val());
+          $.ajax({
+        	  type: "POST",
+        	  url: "/mavenSSM/TR_list/editItem",
+        	  data: JSON.stringify(datas),
+        	  contentType:"application/json",
+        	  dataType: "json",
+        	  success: function(data){
+        		  changeItem(datas);
+        		  $("#tableArea").createTable(jsonObj,{
+        			  rows:10,
+                      needKey:true,
+                      headName:headName,
+                      needseqlist: true,
+                      seqlist: seqlist,
+                      link: true,
+                      linkcols:"eriref",
+                      linkdata: "https://mhweb.ericsson.se/TREditWeb/faces/oo/object.xhtml?mode=VIEW&eriref=",
+                      pages:cpage
+                  });
+        		  $("#cancelEdit").click();
+        	  }
+          });
      });
 
 });
+
+ function changeItem(data){
+	for(var i = 0;i < jsonObj.length;i++){
+		if(jsonObj[i].id == data.id){
+			jsonObj[i] = data;
+			break;
+		}
+	}
+}
 
 $(function(){
          $("#changeUser").bind("click",function(){
@@ -132,6 +208,7 @@ $(function(){
              $("#tableArea").bind("click",function(evt){
                   var which=evt.target;
                   var $tr=$(which).closest("tr");
+                  $("#editID").val($tr.find("input:hidden").val());
                   createEditModel($tr);
                   $("#edit").trigger("click");
              });
