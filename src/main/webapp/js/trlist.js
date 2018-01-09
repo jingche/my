@@ -1,34 +1,51 @@
+var jsonObj = null;
+var headName = new Array("Eriref","Registered By","Registered Date","Finished Date","Turnaround Time","Answer Code","Valid","Heading");
+var seqlist = new Array("id","eriref","registered_by","registered_date","finished_date","turnaround_time","answer_code","valid","heading");
 $(function(){
     //数据，实际情况是从后台获取的，格式json
-      var data = [{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"
-},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" B18","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually","Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"
-},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" B18","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"yes","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"},{"Eriref":"HW19262 ","Registerded by":"EYUAMIA ","Registerded date":" 2017/08/09","Finished date":"2017/08/12","Turnaround Time":"ongoing","Answer code":" ","Valid":"no","Heading":"Cold restart for BPM system reset is triggered after restarting by cold with test manually"}];
-          //在指定的table里根据要求制表，第一个参数是数据第二个是表格属性具体看createTable的defaults有具体注释
-         $("#tableArea").createTable(data,{
-              rows:10
-           });
-
+	
+          $.ajax({
+            type: "POST",
+            url: "/mavenSSM/TR_list/getAllList",
+            dataType: "json",
+            success: function(data){
+            	jsonObj = data;
+                $("#tableArea").createTable(data,{
+                    rows:10,
+                    needKey:true,
+                    headName:headName,
+                    needseqlist: true,
+                    seqlist: seqlist,
+                    link: true,
+                    linkcols:"eriref",
+                    linkdata: "https://mhweb.ericsson.se/TREditWeb/faces/oo/object.xhtml?mode=VIEW&eriref=",
+                });
+            }
+          });
+//针对选择输入框的选项的改变来决定显示多少行数的设置问题，这里createtable是一个自己写的画图插件，非常有实用意义，对于这个需求的table的实现。
            $("#selectpage").bind("change",function(){
             var r = parseInt($(this).val());
               if($(this).val()=="All"){
-              r=parseInt(data.length);
+              r=parseInt(jsonObj.length);
               }
-            $("#tableArea").createTable(data,{
+            $("#tableArea").createTable(jsonObj,{
               rows : r
+            
 
             });
           });
+           //这边是针对search部分，实现筛选功能的代码部分
           $("#inputNumber").bind("input",function(){
             var  r=parseInt($("#selectpage").val());
             if($("#selectpage").val()=="All"){
-             r=parseInt(data.length);
+             r=parseInt(jsonObj.length);
             }
             var value = $(this).val();
-            var temp = [];
-            for(var i = 0;i < data.length;i++){
-              for(x in data[i]){
-                if(data[i][x].indexOf(value) > -1){
-                  temp.push(data[i]);
+            var temp = [];//这边是自己定义的一个数组用于存放被筛选出来的数据行，x是对应的满足条件的对应的table的td部分内容。
+            for(var i = 0;i < jsonObj.length;i++){
+              for(x in jsonObj[i]){
+                if(x != "id" && jsonObj[i][x] != null && jsonObj[i][x].indexOf(value) > -1){
+                  temp.push(jsonObj[i]);
                   break;
                 }
               }
@@ -40,6 +57,7 @@ $(function(){
 
 
 });
+//实现自动的日期值相减，分别针对add按钮和edit按钮的点击之后出现的弹窗中的时间自动相减的过程。
 $(function(){
    $("#time1").bind("blur",function(){
         calDays($(this).val(), $("#time2").val(),"time3");
@@ -62,9 +80,14 @@ $(function(){
 });
 
 $(function(){
+	//让cancel按钮实现清空输入框的结果
+	$("#cancelButton").bind("click",function(){
+  	  $("#addGroup").find("input").val("");
+     });
+	 
      $("#sureAdd").bind("click",function(){
           $("#addError").text("").hide();
-          //$("#time3").trigger(" blur");
+          $("#time3").trigger(" blur");
           var $inputs =$("#addGroup").find("input");
           if($inputs[0].value== ""){
             showError("Eriref can not be null !");
@@ -86,16 +109,48 @@ $(function(){
             showError(" Heading can not be null !");
             return false;
           }
-
-        //  验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
-         $("#cancelButton").click();
+          var datas = {"id": 0,"eriref":$inputs[0].value,"registered_by":$inputs[1].value,"registered_date":$inputs[2].value,
+        		  "finished_date":$inputs[3].value,"turnaround_time":$inputs[4].value,
+        		  "answer_code":$inputs[5].value,"valid":$inputs[6].value,"heading":$inputs[7].value};
+          
+     	  var cpage = parseInt($("#currentPage").val());
+          $.ajax({
+        	  type:"POST",
+        	  url: "/mavenSSM/TR_list/addItem",
+        	  dataType: "json",
+        	  data:JSON.stringify(datas),
+        	  contentType:"application/json",
+        	  success:function(data){
+        		  datas.id = data.id;
+        		  jsonObj.push(datas);
+        		  $("#tableArea").createTable(jsonObj,{
+        			  rows:10,
+                      needKey:true,
+                      headName:headName,
+                      needseqlist: true,
+                      seqlist: seqlist,
+                      link: true,
+                      linkcols:"eriref",
+                      linkdata: "https://mhweb.ericsson.se/TREditWeb/faces/oo/object.xhtml?mode=VIEW&eriref=",
+                      pages:cpage
+                  });
+        		  $("#cancelButton").click();
+        		  $("#addGroup").find("input").val("");//使每次实现add按钮之后，点击submit输入提交到后台之后使下次的add输入内容自动清空，方便下次的输入
+        	  }
+          });
          
-       //成功提交后切换模态框数据
-         $("#addGroup").find("input").val("");
+
      });
-     $("#sureEdit").bind("click",function(){
+     
+     
+     //点击edit按钮的弹框submit按钮点击之后的实现过程 
+     $("#sureEdit").bind("click", function(){
           $("#editError").text("").hide();
           $("#editdate3").trigger(" blur");
+          var $inputs= $("#EditTable").find("input");
+          var datas = {"id": $("#editID").val(),"eriref":$inputs[0].value,"registered_by":$inputs[1].value,"registered_date":$inputs[2].value,
+        		  "finished_date":$inputs[3].value,"turnaround_time":$inputs[4].value,
+        		  "answer_code":$inputs[5].value,"valid":$inputs[6].value,"heading":$inputs[7].value};
           /*var $inputs =$("#EditTable").find("input");
           if($inputs[0].value== ""){
             showError("Eriref can not be null !");
@@ -119,11 +174,42 @@ $(function(){
           }*/
 
         //  验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
-         $("#cancelEdit").click();
+          var cpage = parseInt($("#currentPage").val());
+          $.ajax({
+        	  type: "POST",
+        	  url: "/mavenSSM/TR_list/editItem",
+        	  data: JSON.stringify(datas),
+        	  contentType:"application/json",
+        	  dataType: "json",
+        	  success: function(data){
+        		  changeItem(datas);
+        		  $("#tableArea").createTable(jsonObj,{
+        			  rows:10,
+                      needKey:true,
+                      headName:headName,
+                      needseqlist: true,
+                      seqlist: seqlist,
+                      link: true,
+                      linkcols:"eriref",
+                      linkdata: "https://mhweb.ericsson.se/TREditWeb/faces/oo/object.xhtml?mode=VIEW&eriref=",
+                      pages:cpage
+                  });
+        		  $("#cancelEdit").click();
+        	  }
+          });
      });
 
 });
-
+//用于把edit部分改变的对应输入框的值可以准确的对应到对应的table图标的相应位置显示出来
+ function changeItem(data){
+	for(var i = 0;i < jsonObj.length;i++){
+		if(jsonObj[i].id == data.id){
+			jsonObj[i] = data;
+			break;
+		}
+	}
+}
+//当edit按钮被点击之后发生的add按钮，close按钮的改变过程
 $(function(){
          $("#changeUser").bind("click",function(){
              $(this).hide(360);
@@ -132,6 +218,7 @@ $(function(){
              $("#tableArea").bind("click",function(evt){
                   var which=evt.target;
                   var $tr=$(which).closest("tr");
+                  $("#editID").val($tr.find("input:hidden").val());
                   createEditModel($tr);
                   $("#edit").trigger("click");
              });
@@ -140,8 +227,9 @@ $(function(){
                $(this).hide(360);
                $("#newGroup").show();
                $("#changeUser").show();
-               $("#tableArea").unbind("click");
+               $("#tableArea").unbind("click");//解除对table的输入框的点击，使整个table不能被修改，方便提供给别人看测试结果
           });
+          //使点击table中的任意一个方框都可以使对应的行里面的内容，对应的放入edit按钮实现的弹窗的输入框中；
           function createEditModel ($tr){
             var $input= $("#EditTable").find("input");
             var $tds= $tr.find("td");
@@ -154,7 +242,7 @@ $(function(){
     function showError(msg){
         $("#addError").text(msg).show();
     }
-
+//用正则表达式对日期值进行划分，使时间自动相减，当结束日期没有输入时，即表示ongoing
    function calDays(d1,d2,which){
      var reg=/^(\d{4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;
      if(reg.test(d1) && reg.test(d2)){

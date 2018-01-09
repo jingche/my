@@ -5,27 +5,27 @@ import java.util.Date;
 public class Listp1115 {
     private Integer id;
     
-    private  Date   date;
+    private  String   date;
  
-    private Integer Passed;
+    private Integer passed;
 
-    private Integer Failed_TR;
+    private Integer failed_TR;
 
-    private Integer  Failed_Environment;
+    private Integer  failed_Environment;
 
-    private Integer  Failed_Artifact;
+    private Integer  failed_Artifact;
 
-    private Integer  Inconclusive;
+    private Integer  inconclusive;
 
-    private String   Comment;
+    private String   comment;
 
-    private String   G1_LTE_UP;
+    private String   g1_LTE_UP;
     
-    private String   G1_WCDMA_UP;
+    private String   g1_WCDMA_UP;
     
-    private String   Effectiveness;
+    private String   effectiveness;
     
-    private String   Stability;
+    private String   stability;
 
      
 
@@ -37,93 +37,93 @@ public class Listp1115 {
         this.id = id;
     }
     
-    public Date getdate() {
+    public String getdate() {
     	return date;
     }
     
-    public void setdate(Date date) {
+    public void setdate(String date) {
     	this.date=date;
     }
 
     public Integer getPassed() {
-        return Passed;
+        return passed;
     }
 
     public void setPassed(Integer Passed) {
-        this.Passed = Passed;
+        this.passed = Passed;
     }
 
     public Integer getFailed_TR() {
-        return Failed_TR;
+        return failed_TR;
     }
 
     public void setFailed_TR(Integer Failed_TR) {
-        this.Failed_TR = Failed_TR;
+        this.failed_TR = Failed_TR;
     }
 
     public Integer getFailed_Environment() {
-        return Failed_Environment;
+        return failed_Environment;
     }
 
     public void setFailed_Environment(Integer Failed_Environment) {
-        this.Failed_Environment= Failed_Environment;
+        this.failed_Environment= Failed_Environment;
     }
 
     public Integer getFailed_Artifact() {
-        return Failed_Artifact;
+        return failed_Artifact;
     }
 
     public void setFailed_Artifact(Integer Failed_Artifact) {
-        this.Failed_Artifact= Failed_Artifact;
+        this.failed_Artifact= Failed_Artifact;
     }
 
     public Integer getInconclusive() {
-        return Inconclusive;
+        return inconclusive;
     }
 
     public void setInconclusive(Integer Inconclusive) {
-        this.Inconclusive = Inconclusive;
+        this.inconclusive = Inconclusive;
     }
 
     public String getComment() {
-        return Comment;
+        return comment;
     }
 
     public void setComment(String Comment) {
-        this.Comment= Comment;
+        this.comment= Comment;
     }
 
     public String getG1_LTE_UP() {
-        return G1_LTE_UP;
+        return g1_LTE_UP;
     }
 
     public void setG1_LTE_UP(String G1_LTE_UP) {
-        this.G1_LTE_UP =G1_LTE_UP;
+        this.g1_LTE_UP =G1_LTE_UP;
     }
     
     public String getG1_WCDMA_UP() {
-        return G1_WCDMA_UP;
+        return g1_WCDMA_UP;
     }
 
     public void setG1_WCDMA_UP(String G1_WCDMA_UP) {
-        this.G1_WCDMA_UP =G1_WCDMA_UP;
+        this.g1_WCDMA_UP =G1_WCDMA_UP;
     }
     
 
     public String getEffectiveness() {
-        return Effectiveness;
+        return effectiveness;
     }
 
     public void setEffectiveness(String Effectiveness) {
-        this.Effectiveness = Effectiveness;
+        this.effectiveness = Effectiveness;
     }
     
     public String getStability() {
-    	return Stability;
+    	return stability;
     }
     
     public void setStability(String Stability) {
-    	this.Stability=Stability;
+    	this.stability=Stability;
     }
        
 }

@@ -5,21 +5,21 @@ import java.util.Date;
 public class Trlist  {
     private Integer id;
 
-    private String Eriref;
+    private String eriref;
 
-    private String Registered_by;
+    private String registered_by;
 
-    private Date Registered_date;
+    private String registered_date;
 
-    private Date Finished_date;
+    private String finished_date;
 
-    private String Turnaround_time;
+    private String turnaround_time;
 
-    private String Answer_code;
+    private String answer_code;
 
-    private String Valid;
+    private String valid;
 
-    private String Heading;
+    private String heading;
 
     public Integer getId() {
         return id;
@@ -30,67 +30,67 @@ public class Trlist  {
     }
 
     public String getEriref() {
-        return Eriref;
+        return eriref;
     }
 
     public void setEriref(String Eriref) {
-        this.Eriref = Eriref;
+        this.eriref = Eriref;
     }
 
     public String getRegistered_by() {
-        return Registered_by;
+        return registered_by;
     }
 
     public void setRegistered_by(String Registered_by) {
-        this.Registered_by = Registered_by;
+        this.registered_by = Registered_by;
     }
 
 
-    public Date getRegistered_date() {
-        return Registered_date;
+    public String getRegistered_date() {
+        return registered_date;
     }
 
-    public void setRegistered_date(Date Registered_date) {
-        this.Registered_date= Registered_date;
+    public void setRegistered_date(String Registered_date) {
+        this.registered_date= Registered_date;
     }
 
-    public Date getFinished_date() {
-        return Finished_date;
+    public String getFinished_date() {
+        return finished_date;
     }
 
-    public void setFinished_date(Date Finished_date) {
-        this.Finished_date = Finished_date;
+    public void setFinished_date(String Finished_date) {
+        this.finished_date = Finished_date;
     }
 
     public String getTurnaround_time() {
-        return Turnaround_time;
+        return turnaround_time;
     }
 
     public void setTurnaround_time(String Turnaround_time) {
-        this.Turnaround_time = Turnaround_time;
+        this.turnaround_time = Turnaround_time;
     }
 
     public String getAnswer_code() {
-        return Answer_code;
+        return answer_code;
     }
 
     public void setAnswer_code(String Answer_code) {
-        this.Answer_code = Answer_code;
+        this.answer_code = Answer_code;
     }
 
     public String getValid() {
-        return Valid;
+        return valid;
     }
 
     public void setValid(String Valid) {
-        this.Valid = Valid;
+        this.valid = Valid;
     }
     
     public String getHeading() {
-    	return Heading;
+    	return heading;
     }
     public void setHeading(String Heading) {
-    	this.Heading= Heading;
+    	this.heading= Heading;
     }
     
 }

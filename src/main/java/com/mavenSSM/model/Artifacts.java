@@ -5,17 +5,17 @@ import java.util.Date;
 public class  Artifacts {
     private Integer id;
 
-    private String Owner;
+    private String owner;
 
-    private Date Started_date;
+    private String started_date;
 
-    private Date Finished_date;
+    private String finished_date;
 
-    private Integer Used_days;
+    private Integer used_days;
 
-    private String Category;
+    private String category;
 
-    private String Description;
+    private String description;
 
 
     public Integer getId() {
@@ -27,51 +27,51 @@ public class  Artifacts {
     }
 
     public String getOwner() {
-        return Owner;
+        return owner;
     }
 
     public void setOwner(String Owner) {
-        this.Owner = Owner;
+        this.owner = Owner;
     }
 
-    public Date getStarted_date() {
-        return Started_date;
+    public String getStarted_date() {
+        return started_date;
     }
 
-    public void setStarted_date(Date Started_date) {
-        this.Started_date = Started_date;
+    public void setStarted_date(String Started_date) {
+        this.started_date = Started_date;
     }
 
-    public  Date getFinished_date() {
-        return Finished_date;
+    public  String getFinished_date() {
+        return finished_date;
     }
 
-    public void setFinished_date( Date Finished_date) {
-        this.Finished_date = Finished_date;
+    public void setFinished_date(String Finished_date) {
+        this.finished_date = Finished_date;
     }
 
     public Integer getUsed_days() {
-        return  Used_days;
+        return  used_days;
     }
 
     public void setUsed_days(Integer  Used_days) {
-        this. Used_days =  Used_days;
+        this. used_days =  Used_days;
     }
 
     public String getCategory() {
-        return Category;
+        return category;
     }
 
     public void setCategory(String Category) {
-        this.Category= Category;
+        this.category= Category;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String Description) {
-        this.Description = Description;
+        this.description = Description;
     }
 
      

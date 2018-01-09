@@ -1,19 +1,34 @@
   package com.mavenSSM.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mavenSSM.model.User;
-import com.mavenSSM.service.TestService;
+ 
+import com.mavenSSM.service.Listp1103Service;
+import com.mavenSSM.service.Listp1104Service;
+import com.mavenSSM.service.Listp1114Service;
+import com.mavenSSM.service.Listp1115Service;
+ 
+ 
 
 @Controller
 @RequestMapping("/")
 public class TestController {
+	 
 	@Autowired
-	private TestService ts;
+	private Listp1103Service listp1103Service;
+	@Autowired
+	private Listp1104Service listp1104Service;
+	@Autowired
+	private Listp1114Service listp1114Service;
+	@Autowired
+	private Listp1115Service listp1115Service;
 	
 	/*@RequestMapping(value="", method=RequestMethod.GET)
 	public String toTest(){
@@ -23,26 +38,28 @@ public class TestController {
 	public String toIndex() {
 		return "index";
 	}
-	@RequestMapping(value="TR_list")
-	public String toTRlist() {
-		return "TR_list";
-	}
-	@RequestMapping(value="Artifacts")
-	public String toArtifacts() {
-		return "Artifacts";
-	}
-	@RequestMapping(value="testing")
-	public String toTesting() {
-		return "testing";
-	}
+	 
+	 
+	 
 	@RequestMapping(value="about-us")
 	public String toAbout() {
 		return "about-us";
 	}
+
 	
-	@RequestMapping(value="getUser")
+	@RequestMapping(value="getChart", method=RequestMethod.POST)
 	@ResponseBody
-	public User getUser(){
-		return ts.getUser();
+	public List handlerGetChatAjax(@RequestParam("table") String table){
+		switch(table){
+		case "1103":
+			return listp1103Service.getAllListp1103();
+		case "1104":
+			return listp1104Service.getAllListp1104();
+		case "1114":
+			return listp1114Service.getAllListp1114();
+		case "1115":
+			return listp1115Service.getAllListp1115();
+		}
+		return listp1103Service.getAllListp1103();
 	}
 }

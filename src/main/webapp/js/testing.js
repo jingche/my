@@ -1,54 +1,77 @@
-$(function(){
+//testing部分的代码与trlist和artifacts代码部分大部分的功能实现代码一致，而且部分代码有相似的思想，不一样的部分已经有对应的注释；
+var jsonObj = null;
+var headName = {};//对应的是table前端页面显示的头标题
+var seqlist = {};//对应数据库与dao层属性映射的列表
+var currentTable = '1103';//初始时是默认listp1103表格
+
+$(function(){ 
+	headName.l1103 = new Array("Date","Passed","Failed_TR","Failed_Environment","Failed_Artifact","Inconclusive","Comment","G1_LTE_UP","G2_MSME_UP","Effectiveness","Stability");
+	headName.l1104 = new Array("Date","Passed","Failed_TR","Failed_Environment","Failed_Artifact","Inconclusive","Comment","G1_LTE_UP","G2_LTE_UP","Effectiveness","Stability");
+	headName.l1114 = new Array("Date","Passed","Failed_TR","Failed_Environment","Failed_Artifact","Inconclusive","Comment","G1_LTE_UP","G1_WCDMA_UP","Effectiveness","Stability");
+	headName.l1115 = new Array("Date","Passed","Failed_TR","Failed_Environment","Failed_Artifact","Inconclusive","Comment","G1_LTE_UP","G1_WCDMA_UP","Effectiveness","Stability");
+	
+	seqlist.l1103 = new Array("id","date","passed","failed_TR","failed_Environment","failed_Artifact","inconclusive","comment","g1_LTE_UP","g2_MSME_UP","effectiveness","stability");
+	seqlist.l1104 = new Array("id","date","passed","failed_TR","failed_Environment","failed_Artifact","inconclusive","comment","g1_LTE_UP","g2_LTE_UP","effectiveness","stability");
+	seqlist.l1114 = new Array("id","date","passed","failed_TR","failed_Environment","failed_Artifact","inconclusive","comment","g1_LTE_UP","g1_WCDMA_UP","effectiveness","stability");
+	seqlist.l1115 = new Array("id","date","passed","failed_TR","failed_Environment","failed_Artifact","inconclusive","comment","g1_LTE_UP","g1_WCDMA_UP","effectiveness","stability");
+ 
     //数据，实际情况是从后台获取的，格式json
-    var data = [{"Date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState sdh jhdj jhdj jshwe jhfjjhkk hejh"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"}, {"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"}];
-          //在指定的table里根据要求制表，第一个参数是数据第二个是表格属性具体看createTable的defaults有具体注释
-        // $("#tableArea").createTable(data,{
-            //  rows:10
-           //});
-            createTable(data);
-            //实现选择框下拉菜单选项被点击之后的显示的个数，其中createtable.js是写的一个图表插件，目的是形成图表，相关js有对应注释。
+     $.ajax({
+      type: "POST",
+      url: "/mavenSSM/testing/getAllList",
+      data:{"table":"1103"},
+      dataType: "json",
+      success: function(data){
+      	  jsonObj = data;
+          $("#tableArea").createTable(data,{
+              rows:10,
+              needKey:true,
+              headName:headName.l1103,
+              needseqlist: true,
+              seqlist: seqlist.l1103,
+            
+          });
+      }
+    });
+    
+   
+            //实现选择框下拉菜单选项被点击之后的显示的个数，其中createtable.js是自己写的一个图表插件，目的是形成图表，相关js有对应注释。
            $("#selectpage").bind("change",function(){
             var r = parseInt($(this).val());
              if($(this).val()=="All"){
-              r=data.length;
+              r=jsonObj.length;
              }
-            $("#tableArea").createTable(data,{
-              rows : r
-            });
+             $("#tableArea").createTable(jsonObj,{
+	              rows:r,
+	              needKey:true,
+	              headName:headName['l'+currentTable],
+	              needseqlist:true,
+	              seqlist: seqlist['l'+currentTable],
+	          });
           });
-          //实现search：处对应的筛选工作，根据选择框实现显示的对应个数。data[i]是满足条件的对应行。
+          //实现search：处对应的筛选工作，根据选择框实现显示的对应个数。jsonObj[i]是满足条件的对应行。
           $("#inputNumber").bind("input",function(){
             var  r=parseInt($("#selectpage").val());
               if($("#selectpage").val()=="All"){
-               r= data.length ;
+            	  r=parseInt(jsonObj.length);
               }
             var value = $(this).val();
             var temp = [];
-            for(var i = 0;i < data.length;i++){
-              for(x in data[i]){
-                if(data[i][x].indexOf(value) > -1){
-                  temp.push(data[i]);
-                  break;
+            for(var i = 0;i < jsonObj.length;i++){
+                for(x in jsonObj[i]){
+                  if(x != "id" && jsonObj[i][x] != null && (""+jsonObj[i][x]).indexOf(value) > -1){
+                    temp.push(jsonObj[i]);
+                    break;
+                  }
                 }
               }
-            }
             $("#tableArea").createTable(temp,{
-              rows : r
-            });
+	              rows:10,
+	              needKey:true,
+	              headName:headName['l'+currentTable],
+	              needseqlist:true, 
+	              seqlist: seqlist['l'+currentTable],
+	          });
         });
 
 
@@ -64,117 +87,47 @@ $(function(){
   $("#newGroup").bind("click",function(){
       var tableTh=$("#example thead th");
       var addTh=$("#addGroup th");
-      for(var i=0;i<addTh.length;i++){
-         $(addTh[i]).text($(tableTh[i]).text());
+      for(var i=0; i< addTh.length; i++){
+         $(addTh[i]).text($(tableTh[i]).text() + ":");
       }
   });
 
 });
-//获取四张表的data
-function getData(which){
-    /*
-    $.ajax({
-      type:"post",
-      url:"",
-      data:"which":which,
-      dataType:"",
-      success: function(data){
-          createTable(data);
-    }
-
-
-  });
-    */
-
-    var data=[];
-    switch(which){
-      case "1103":
-       data=[{"Date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState sdh jhdj jhdj jshwe jhfjjhkk hejh"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"}, {"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
- ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 MSME UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"}];
-
-      break;
-      case "1104":
-        data=[{"Date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE  UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState sdh jhdj jhdj jshwe jhfjjhkk hejh"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"}, {"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-  ,"G1 LTE UP":" CXP9024418_6-R24A52","G2 LTE UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"}];
-
-      break;
-      case "1114":
-      data=[{"Date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState sdh jhdj jhdj jshwe jhfjjhkk hejh"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"}, {"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"}];
-      break;
-      case "1115":
-      data=[{"Date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState sdh jhdj jhdj jshwe jhfjjhkk hejh"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"}, {"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"},{"date":" 2017/08/09", "Passed":"7 ","Failed TR":"4", " Failed Environment":"8", "Failed Artifact":"4", "Inconclusive":"1", "Comment":"[NCMAIN repo][test-rbsnc project]: make UpgradeWithCpriBreakTest choose test focus UP as its upToState"
-,"G1 LTE UP":" CXP9024418_6-R24A52","G1 WCDMA UP":"CXP9024418_6-R24A52","Effectiveness":"20%","Stability":"10%"}];
-       break;
-       default:
-       return false;
-    }
-    createTable(data);
-}
 //which是选择的下拉菜单中的1103,1104,1114,1115
 $(function(){
-      $("#chartSelect").bind("change",function(){
-        var which=$(this).find("option:selected").val();
-       getData(which);
-       //切换表格时清空add数据
-       $("#addGroup").find("input").val("");
-       $("#addGroup").find("textarea").val("");
+    $("#chartSelect").bind("change",function(){
+     var which=$(this).find("option:selected").val(); 
+     getData(which);
+     //切换表格时清空add数据
+     $("#addGroup").find("input").val("");
+     $("#addGroup").find("textarea").val("");//同样是清空表格数据，使下次add输入可以顺利进行
 
 
-      });
+    });
 });
+//获取四张表的data
+ 
+function getData(which){
+    currentTable = which;
+	$.ajax({
+	      type: "POST",
+	      url: "/mavenSSM/testing/getAllList",
+	      data:{"table":which},
+	      dataType: "json",
+	      success:function(data){
+	       	jsonObj = data;
+	          $("#tableArea").createTable(data,{
+	              rows:10,
+	              needKey:true,
+	              headName:headName['l'+which],
+	              needseqlist: true,
+	              seqlist: seqlist['l'+which],
+	          });
+	      }
+	    });
+    
+}
+ 
 /*
 实现点击add按钮和edit按钮后显示内容中自动计算effectiveness和stability的值。
 */
@@ -235,9 +188,15 @@ function calAve (sum,passed){
 
 
 /*
-这是一个验证输入合法的过程
+这是一个验证输入合法的过程,以及对四个表格的不同输入数据的过程
 */
 $(function(){
+	//让cancel按钮实现清空输入框和textarea框的结果
+	 $("#cancelButton").bind("click",function(){
+		 $("#addGroup").find("input").val("");
+	     $("#addGroup").find("textarea").val("");
+	  	  });
+	
      $("#sureAdd").bind("click",function(){
           $("#addError").text("").hide();
           //$("#editdate3").trigger(" blur");
@@ -272,25 +231,121 @@ $(function(){
             showError("  G1 LTE UP can not be null !");
             return false;
           }
-
-
-
-
-        //  验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
-         $("#cancelButton").click();
-         //成功提交后切换模态框数据
-         $("#addGroup").find("input").val("");
-         $("#addGroup").find("textarea").val("");
+          var datas = {};
+          switch(currentTable){
+              case "1103":
+    		      datas = {"id": 0,"date":$inputs[0].value,"passed":$inputs[1].value,"failed_TR":$inputs[2].value,
+            		  "failed_Environment":$inputs[3].value,"failed_Artifact":$inputs[4].value,
+            		  "inconclusive":$inputs[5].value,"comment":$("#comment1").val(),"g1_LTE_UP":$inputs[6].value,"g2_MSME_UP":$inputs[7].value,"effectiveness":$inputs[8].value,"stability":$inputs[9].value};
+    		      break;
+              case "1104":
+            	  datas = {"id": 0,"date":$inputs[0].value,"passed":$inputs[1].value,"failed_TR":$inputs[2].value,
+            		  "failed_Environment":$inputs[3].value,"failed_Artifact":$inputs[4].value,
+            		  "inconclusive":$inputs[5].value,"comment":$("#comment1").val(),"g1_LTE_UP":$inputs[6].value,"g2_LTE_UP":$inputs[7].value,"effectiveness":$inputs[8].value,"stability":$inputs[9].value};
+    		      break;
+              case "1114":
+            	  datas = {"id": 0,"date":$inputs[0].value,"passed":$inputs[1].value,"failed_TR":$inputs[2].value,
+            		  "failed_Environment":$inputs[3].value,"failed_Artifact":$inputs[4].value,
+            		  "inconclusive":$inputs[5].value,"comment":$("#comment1").val(),"g1_LTE_UP":$inputs[6].value,"g1_WCDMA_UP":$inputs[7].value,"effectiveness":$inputs[8].value,"stability":$inputs[9].value};
+    		      break;
+              case "1115":
+            	  datas = {"id": 0,"date":$inputs[0].value,"passed":$inputs[1].value,"failed_TR":$inputs[2].value,
+            		  "failed_Environment":$inputs[3].value,"failed_Artifact":$inputs[4].value,
+            		  "inconclusive":$inputs[5].value,"comment":$("#comment1").val(),"g1_LTE_UP":$inputs[6].value,"g1_WCDMA_UP":$inputs[7].value,"effectiveness":$inputs[8].value,"stability":$inputs[9].value};
+    		      break;
+             
+          }
+        	  
+     	  var cpage = parseInt($("#currentPage").val());
+          $.ajax({
+        	  type:"POST",
+        	  url: "/mavenSSM/testing/addItem"+currentTable,
+        	  dataType: "json",
+        	  data:JSON.stringify(datas),
+        	  contentType:"application/json",
+        	  success:function(data){
+        		  datas.id = data.id;
+        		  jsonObj.push(datas);
+        		  $("#tableArea").createTable(jsonObj,{
+        			  rows:10,
+                      needKey:true,
+                      headName:headName["l"+currentTable],
+                      needseqlist: true,
+                      seqlist:seqlist["l"+currentTable],
+                      pages:cpage
+                  });
+        		  //  验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
+        	         $("#cancelButton").click();
+        	         //成功提交后切换模态框数据
+        	         $("#addGroup").find("input").val("");
+        	         $("#addGroup").find("textarea").val("");
+        	 
+        	  }
+          });
+         
      });
      $("#sureEdit").bind("click",function(){
           $("#editError").text("").hide();
-          $("#editdate3").trigger(" blur");
-
+          //$("#editdate3").trigger(" blur");
+          var $inputs= $("#EditTable").find("input");
+          var datas = {};
+          switch(currentTable){
+              case "1103":
+            	  datas = {"id": $("#editID").val(),"date":$inputs[0].value,"passed":$inputs[1].value,"failed_TR":$inputs[2].value,
+            		  "failed_Environment":$inputs[3].value,"failed_Artifact":$inputs[4].value,
+            		  "inconclusive":$inputs[5].value,"comment":$("#editcomment1").val(),"g1_LTE_UP":$inputs[6].value,"g2_MSME_UP":$inputs[7].value,"effectiveness":$inputs[8].value,"stability":$inputs[9].value};
+            	  break;
+              case "1104":
+            	  datas = {"id": $("#editID").val(),"date":$inputs[0].value,"passed":$inputs[1].value,"failed_TR":$inputs[2].value,
+            		  "failed_Environment":$inputs[3].value,"failed_Artifact":$inputs[4].value,
+            		  "inconclusive":$inputs[5].value,"comment":$("#editcomment1").val(),"g1_LTE_UP":$inputs[6].value,"g2_LTE_UP":$inputs[7].value,"effectiveness":$inputs[8].value,"stability":$inputs[9].value};
+            	  break;
+              case "1114":
+            	  datas = {"id": $("#editID").val(),"date":$inputs[0].value,"passed":$inputs[1].value,"failed_TR":$inputs[2].value,
+            		  "failed_Environment":$inputs[3].value,"failed_Artifact":$inputs[4].value,
+            		  "inconclusive":$inputs[5].value,"comment":$("#editcomment1").val(),"g1_LTE_UP":$inputs[6].value,"g1_WCDMA_UP":$inputs[7].value,"effectiveness":$inputs[8].value,"stability":$inputs[9].value};
+            	  break;
+              case "1115":
+            	  datas = {"id": $("#editID").val(),"date":$inputs[0].value,"passed":$inputs[1].value,"failed_TR":$inputs[2].value,
+            		  "failed_Environment":$inputs[3].value,"failed_Artifact":$inputs[4].value,
+            		  "inconclusive":$inputs[5].value,"comment":$("#editcomment1").val(),"g1_LTE_UP":$inputs[6].value,"g1_WCDMA_UP":$inputs[7].value,"effectiveness":$inputs[8].value,"stability":$inputs[9].value};
+            	  break;
+          }
+         
         //验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
-         $("#cancelEdit").click();
+          var cpage = parseInt($("#currentPage").val());
+          $.ajax({
+        	  type: "POST",
+        	  url: "/mavenSSM/testing/editItem"+currentTable,
+        	  data: JSON.stringify(datas),
+        	  contentType:"application/json",
+        	  dataType: "json",
+        	  success: function(data){
+        		  changeItem(datas);
+        		  $("#tableArea").createTable(jsonObj,{
+        			  rows:10,
+                      needKey:true,
+                      headName:headName["l"+currentTable],
+                      needseqlist: true,
+                      seqlist:seqlist["l"+currentTable],
+                      pages:cpage
+                  });
+        		  $("#cancelEdit").click();
+        	  }
+          });
+         
      });
 
 });
+
+function changeItem(data){
+	for(var i = 0;i < jsonObj.length;i++){
+		if(jsonObj[i].id == data.id){
+			jsonObj[i] = data;
+			break;
+		}
+	}
+}
 /*
 点击edit按钮之后，当点击table中的任意一个th都会跳出edit窗口实现编辑功能。点击完edit按钮，使add按钮隐藏，edit按钮隐藏，closeEdit显示。
 “#tablearea”是表示点击的任意的th区域，“#newGroup”是add按钮的id,"#closeEdit"是closeedit按钮的id。
@@ -304,6 +359,7 @@ $(function(){
             $("#tableArea").bind("click",function(evt){
                  var which = evt.target;
                  var  $tr = $(which).closest("tr");
+                 $("#editID").val($tr.find("input:hidden").val());
                  var tableth1=$("#example thead th");//1
                  var editth1=$("#EditTable th");//2
                  for(var j=0;j<editth1.length;j++){//3
