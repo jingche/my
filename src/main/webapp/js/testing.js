@@ -1,4 +1,4 @@
-//testing部分的代码与trlist和artifacts代码部分大部分的功能实现代码一致，而且部分代码有相似的思想，不一样的部分已经有对应的注释；
+//testing部分的代码与TR_list和artifacts代码部分大部分的功能实现代码一致，而且部分代码有相似的思想，不一样的部分已经有对应的注释；
 var jsonObj = null;
 var headName = {};//对应的是table前端页面显示的头标题
 var seqlist = {};//对应数据库与dao层属性映射的列表
@@ -15,7 +15,7 @@ $(function(){
 	seqlist.l1114 = new Array("id","date","passed","failed_TR","failed_Environment","failed_Artifact","inconclusive","comment","g1_LTE_UP","g1_WCDMA_UP","effectiveness","stability");
 	seqlist.l1115 = new Array("id","date","passed","failed_TR","failed_Environment","failed_Artifact","inconclusive","comment","g1_LTE_UP","g1_WCDMA_UP","effectiveness","stability");
  
-    //数据，实际情况是从后台获取的，格式json
+    //数据，实际情况是从后台获取的，格式json，一开始的时候是显示1103的table
      $.ajax({
       type: "POST",
       url: "/mavenSSM/testing/getAllList",
@@ -49,7 +49,7 @@ $(function(){
 	              seqlist: seqlist['l'+currentTable],
 	          });
           });
-          //实现search：处对应的筛选工作，根据选择框实现显示的对应个数。jsonObj[i]是满足条件的对应行。
+          //实现search：处对应的筛选工作，根据选择框实现显示的对应个数。jsonObj[i]是满足条件的对应行。把符合条件的temp用createtable的插件实现出来。
           $("#inputNumber").bind("input",function(){
             var  r=parseInt($("#selectpage").val());
               if($("#selectpage").val()=="All"){
@@ -231,7 +231,7 @@ $(function(){
             showError("  G1 LTE UP can not be null !");
             return false;
           }
-          var datas = {};
+          var datas = {}; 
           switch(currentTable){
               case "1103":
     		      datas = {"id": 0,"date":$inputs[0].value,"passed":$inputs[1].value,"failed_TR":$inputs[2].value,

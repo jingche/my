@@ -49,7 +49,7 @@ $(function(){
           $("#inputNumber").bind("input",function(){   
             var  r=parseInt($("#selectpage").val());
               if($("#selectpage").val()=="All"){
-               r= parseInt(jsonObj.length);
+                 r= parseInt(jsonObj.length);
               }
             var value = $(this).val();
             var temp = [];
@@ -150,6 +150,7 @@ $(function(){
                       linkdata: "https://openalm.lmera.ericsson.se/plugins/tracker/?aid=",
                       pages:cpage
         		  });
+ 
         		     $("#Select2 option:eq(0)").attr("selected",true);
         		//  验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
         	         $("#cancelButton").click();
@@ -186,7 +187,7 @@ $(function(){
             return false;
           }*/
           var datas = {"id": $("#editID").val(),"owner":$inputs[0].value,"started_date":$inputs[1].value,"finished_date":$inputs[2].value,
-        		  "used_days":$inputs[3].value,"category":$("#editSelect").find(':selected').text(),"description":$inputs[4].value};
+            "used_days":$inputs[3].value,"category":$("#editSelect").find(':selected').text(),"description":$inputs[4].value};
           var cpage = parseInt($("#currentPage").val());
           $.ajax({
         	  type: "POST",

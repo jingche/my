@@ -38,15 +38,13 @@ public class TestController {
 	public String toIndex() {
 		return "index";
 	}
-	 
-	 
-	 
+ 
 	@RequestMapping(value="about-us")
 	public String toAbout() {
 		return "about-us";
 	}
 
-	
+	//主要用于获取对应的1103， 1104， 1114， 1115 的结果折线和柱状图
 	@RequestMapping(value="getChart", method=RequestMethod.POST)
 	@ResponseBody
 	public List handlerGetChatAjax(@RequestParam("table") String table){

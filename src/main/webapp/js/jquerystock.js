@@ -29,6 +29,7 @@ function  createChart (which){
 				
 			}
 			$('#edu2').empty();
+			//这部分是结合highstock插件的使用，实现柱状图和折线图的设置，其中的which是对应的1103， 1104， 1114， 1115
 		    $('#edu2').highcharts('StockChart',{
 			       chart:{
 			            /*zoomType:'x',*/
@@ -135,7 +136,7 @@ function  createChart (which){
 			            column: {
 			                stacking: 'normal',
 			                enableMouseTracking:true,
-			                minPointLength: 2,
+			                minPointLength:2,
 			                tooltip: {
 			                  /*headerFormat: '<b>{point.x}</b><br/>',
 			                  pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'*/
@@ -148,8 +149,8 @@ function  createChart (which){
 			                }
 
 			             },
-			           line:{
-			                minPointLength: 2,
+			           line:{    
+			                minPointLength:2,
 			                 dataLabels:{
 			                    enabled:false,
 			                    formatter:function(){

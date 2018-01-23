@@ -22,7 +22,10 @@ $(function(){
                 });
             }
           });
+ 
 //针对选择输入框的选项的改变来决定显示多少行数的设置问题，这里createtable是一个自己写的画图插件，非常有实用意义，对于这个需求的table的实现。
+ 
+ 
            $("#selectpage").bind("change",function(){
             var r = parseInt($(this).val());
               if($(this).val()=="All"){
@@ -42,6 +45,7 @@ $(function(){
             }
             var value = $(this).val();
             var temp = [];//这边是自己定义的一个数组用于存放被筛选出来的数据行，x是对应的满足条件的对应的table的td部分内容。
+ 
             for(var i = 0;i < jsonObj.length;i++){
               for(x in jsonObj[i]){
                 if(x != "id" && jsonObj[i][x] != null && jsonObj[i][x].indexOf(value) > -1){
@@ -135,15 +139,22 @@ $(function(){
                       pages:cpage
                   });
         		  $("#cancelButton").click();
+ 
         		  $("#addGroup").find("input").val("");//使每次实现add按钮之后，点击submit输入提交到后台之后使下次的add输入内容自动清空，方便下次的输入
+ 
+ 
         	  }
           });
          
 
      });
+ 
      
      
      //点击edit按钮的弹框submit按钮点击之后的实现过程 
+ 
+      
+ 
      $("#sureEdit").bind("click", function(){
           $("#editError").text("").hide();
           $("#editdate3").trigger(" blur");
@@ -199,8 +210,10 @@ $(function(){
           });
      });
 
+ 
 });
 //用于把edit部分改变的对应输入框的值可以准确的对应到对应的table图标的相应位置显示出来
+ 
  function changeItem(data){
 	for(var i = 0;i < jsonObj.length;i++){
 		if(jsonObj[i].id == data.id){
@@ -209,7 +222,9 @@ $(function(){
 		}
 	}
 }
+ 
 //当edit按钮被点击之后发生的add按钮，close按钮的改变过程
+ 
 $(function(){
          $("#changeUser").bind("click",function(){
              $(this).hide(360);

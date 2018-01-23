@@ -1,3 +1,43 @@
+/*function createChart(which){
+     $.ajax({
+	     type:'post',
+	     data:{'table':which},
+	     dataType:"json",
+	     url:"/maven/getChart",
+	     success:function(data){
+		    var date1=[];
+		    var date2=[];
+		    var date3=[];
+		    var date4=[];
+		    var line1=[];
+		    var line2=[];
+		    for(var i=0;i<data.length;i++){
+		         var time=data[i].date.splite('-');
+		         var year=parseInt(time[0]);
+		         var month=parseInt(time[1]);
+		         var day=parseInt(time[2]);
+		         date1.push([Date.UTC(year,month-1,day),parseInt(data[i].passed)]);
+		         date2.push([Date.UTC(year,month-1,day),parseInt(data[i].failed_TR)]);
+		         date3.push([Date.UTC(year,month-1,day),parseInt(data[i].failed_Environment)]);
+		         date4.push([Date.UTC(year,month-1,day),parseInt(data[i].failed_artifacts)]);
+		         line1.push([Date.UTC(year,month-1,day),parseFloat(data[i].effectiveness)]);
+		         line2.push([Date.UTC(year,month-1,day),parseFloat(data[i].stability)]);
+		    }
+	    }
+	
+   });
+}
+ $(function(){
+	 createChart('1103');
+	 $("#buttonArea div").bind("click",function(){
+		createChart($(this).text().substring(5,9));
+		$(this).siblings().removeClass('active1');
+		$(this).addClass('active1');
+		
+	})
+ });*/
+	 
+ 
 var date1=[
   [Date.UTC(2017,6,3),10],
   [Date.UTC(2017,6,4),0],
