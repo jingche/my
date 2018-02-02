@@ -19,6 +19,9 @@ public class ArtifactsService {
 	}
 	
 	public int addNewItem(Artifacts artifacts){
+		final String finishTime = artifacts.getFinished_date();
+		if(finishTime == "")
+			artifacts.setFinished_date(null);
 		listDao.addNewItem(artifacts);
 		return artifacts.getId();
 	}

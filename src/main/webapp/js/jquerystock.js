@@ -10,6 +10,7 @@ function  createChart (which){
 			var date2=[];
 			var date3=[];
 			var date4=[];
+			var date5=[];
 			var line1=[];
 			var line2=[];
 			var line3=[];
@@ -23,6 +24,7 @@ function  createChart (which){
 				date2.push([Date.UTC(year,month-1,day),parseInt(data[i].failed_TR)]);
 				date3.push([Date.UTC(year,month-1,day),parseInt(data[i].failed_Environment)]);
 				date4.push([Date.UTC(year,month-1,day),parseInt(data[i].failed_Artifact)]);
+				date5.push([Date.UTC(year,month-1,day),parseInt(data[i].inconclusive)]);
 				line1.push([Date.UTC(year,month-1,day),parseFloat(data[i].effectiveness)]);
 				line2.push([Date.UTC(year,month-1,day),parseFloat(data[i].stability)]);
 				
@@ -46,6 +48,7 @@ function  createChart (which){
 			        	
 			        }
 			       },
+			       
 
 			      xAxis:[{
 
@@ -79,7 +82,8 @@ function  createChart (which){
 			                        }
 			          },*/
 			    yAxis: [{ // Primary yAxis
-
+			    	     
+			    	     minRange: 2,
 			                labels: {
 
 			                   format: '{value} %',
@@ -93,7 +97,9 @@ function  createChart (which){
 			               title: {
 			                   text: 'percent',
 			                   style: {
-			                       color: '#000'
+			                       color: '#000',
+			                       fontSize:"21px"
+						            
 			                   }
 			               },
 			               opposite: true
@@ -103,6 +109,8 @@ function  createChart (which){
 			                   text: 'amount',
 			                   style: {
 			                       color: '#000',
+			                       fontSize:"21px" 
+						            
 			                       /*tickInterval:[0,20%,40%,60%,80%,100%],*/
 			                   }
 			               },
@@ -137,6 +145,7 @@ function  createChart (which){
 			                stacking: 'normal',
 			                enableMouseTracking:true,
 			                minPointLength:2,
+			                
 			                tooltip: {
 			                  /*headerFormat: '<b>{point.x}</b><br/>',
 			                  pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'*/
@@ -270,7 +279,7 @@ function  createChart (which){
 			           },
 			        series: [{
 			              name: 'passed',
-			              color: '#4572A7',
+			              color: '#009100',
 			              type: 'column',
 			              yAxis: 1,
 			                //data: [0, 31.5, 10.4, 12.2, 14.0, 76.0, 35.6, 48.5, 16.4, 94.1, 65.6, 54.4,28,55],
@@ -289,12 +298,13 @@ function  createChart (which){
 			              }
 			          }, {
 			              name: 'Failed TR',
-			              color: '#7772A7',
+			              color: '#f44336',
 			              type: 'column',
 			              yAxis: 1,
 			              //data: [42, 31.5, 10.4, 29.2, 44.0, 17.0, 35.6, 48.5, 20.4, 19.1, 45.6, 54.4,44,26],
 			              data:date2,
 			              dataGrouping: {
+			             
 			               units: [[
 			                   'week', // unit name
 			                   [1] // allowed multiples
@@ -309,7 +319,7 @@ function  createChart (which){
 
 			          }, {
 			              name: 'Failed Environment',
-			              color: '#000',
+			              color: '#FF9900',
 			              type: 'column',
 			              yAxis: 1,
 			              //data: [41.9, 31.5, 18.4, 14.2, 44.0, 16.0, 35.6, 48.5, 21.4, 14.1, 65.6, 34.4,18,25],
@@ -329,7 +339,7 @@ function  createChart (which){
 
 			          },{
 			              name: 'Failed Artifact',
-			              color: '#2C3E50',
+			              color: '#008CBA',
 			              type: 'column',
 			              yAxis: 1,
 			              //data: [20, 31.5, 16.4, 29.2, 14.0, 17.0, 15.6, 18.5, 26.4, 19.1, 35.6, 24.4,36,33],
@@ -348,11 +358,32 @@ function  createChart (which){
 			              }
 
 			          }, {
+			              name: 'Inconclusive',
+			              color: '#66009D',
+			              type: 'column',
+			              yAxis: 1,
+			              //data: [20, 31.5, 16.4, 29.2, 14.0, 17.0, 15.6, 18.5, 26.4, 19.1, 35.6, 24.4,36,33],
+			              data:date4,
+			              dataGrouping: {
+			               units: [[
+			                   'week', // unit name
+			                   [1] // allowed multiples
+			               ], [
+			                   'month',
+			                   [1, 2, 3, 4, 6]
+			               ]]
+			           },
+			              tooltip: {
+			                  valueSuffix: ' '
+			              }
+
+			          },{
 			              name: 'Effectiveness',
-			              color: '#3498DB',
+			              color: '#66114E',
 			              type: 'line',
 			              //data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9 ,9.6,34],
 			              data:line1,
+			              visible:false,
 			              dataGrouping: {
 			               units: [[
 			                   'week', // unit name
@@ -369,7 +400,7 @@ function  createChart (which){
 			              }
 			          }, {
 			              name: 'Stability',
-			              color: '#66114E',
+			              color: '#000079',
 			              type: 'line',
 			              //data: [8, 9, 11, 14.5, 35, 33, 55, 67, 36, 44, 37,20,56],
 			              data:line2,
