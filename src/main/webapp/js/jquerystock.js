@@ -31,6 +31,7 @@ function  createChart (which){
 				
 			}
 			$('#edu2').empty();
+			 
 			//这部分是结合highstock插件的使用，实现柱状图和折线图的设置，其中的which是对应的1103， 1104， 1114， 1115
 		    $('#edu2').highcharts('StockChart',{
 			       chart:{
@@ -506,7 +507,7 @@ $(function(){
 		createChart($(this).text().substring(5,9));
 		$(this).siblings().removeClass("active1");
 		$(this).addClass("active1");
-		
+		 
 		
 	});
 	
