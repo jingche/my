@@ -84,7 +84,7 @@ function  createChart (which){
 			          },*/
 			    yAxis: [{ // Primary yAxis
 			    	     
-			    	     minRange: 2,
+			    	     
 			                labels: {
 
 			                   format: '{value} %',
@@ -145,7 +145,7 @@ function  createChart (which){
 			            column: {
 			                stacking: 'normal',
 			                enableMouseTracking:true,
-			                minPointLength:2,
+			                minPointLength:3,
 			                
 			                tooltip: {
 			                  /*headerFormat: '<b>{point.x}</b><br/>',
@@ -154,7 +154,7 @@ function  createChart (which){
 			                        },
 			                dataLabels: {
 			                enabled: true,
-
+                            //y:20,
 			                color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
 			                }
 
@@ -195,6 +195,7 @@ function  createChart (which){
 			               height: 10,
 			               allButtonsEnabled:true,
 			               inputEnabled:true,
+			               selected:6,
 			             buttons: [{
 			                   type: 'month',
 			                   count: 1,
@@ -217,12 +218,14 @@ function  createChart (which){
 			               }, {
 			                   type: 'all',
 			                   text: 'All'
+			                    
 			               }],
 			               buttonTheme: { // styles for the buttons
 			                   fill: 'none',
 			                   stroke: '#68A',
 			                 'stroke-width': 0,
 			                   r: 8,
+			                   //zIndex:6,
 			                   style: {
 			                       color: '#000',
 			                       fontWeight: 'bold'
@@ -506,9 +509,7 @@ $(function(){
 	$("#buttonArea div").bind("click",function(){
 		createChart($(this).text().substring(5,9));
 		$(this).siblings().removeClass("active1");
-		$(this).addClass("active1");
-		 
-		
+		$(this).addClass("active1");	
 	});
 	
 });
