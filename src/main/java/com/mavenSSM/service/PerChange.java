@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.mavenSSM.model.Listp;
 
+@Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class PerChange {
 	public static void change(List<? extends Listp> list){
 		for(Listp l: list){
@@ -22,7 +27,11 @@ public class PerChange {
 		StringBuilder sb = new StringBuilder();
 		Matcher m = Pattern.compile("^\\d+\\.(\\d{1,2})(\\d*)$").matcher(num);
 		if(m.find()){
-			sb.append(m.group(1));
+			String pre = m.group(1);
+			if(pre.length() == 1)
+				pre+="0";
+			sb.append(pre);
+			
 			final String dot = m.group(2);
 			if(dot != null && dot.length() > 0)
 				sb.append(".").append(dot);

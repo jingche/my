@@ -14,7 +14,9 @@ public class Listp1115Service {
 	private Listp1115Dao listDao;
 	
 	public List<Listp1115> getAllListp1115(){
-		return listDao.getAllLIstp1115();
+		List<Listp1115> list =  listDao.getAllLIstp1115();
+		PerChange.change(list);
+		return list;
 	}
 	
 	public int addNewItem(Listp1115 listp1115){
