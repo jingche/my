@@ -507,9 +507,11 @@ function  createChart (which){
 $(function(){
 	createChart("1103");
 	$("#buttonArea div").bind("click",function(){
-		createChart($(this).text().substring(5,9));
+		var which=$(this).text().substring(5,9);
+		createChart(which);
 		$(this).siblings().removeClass("active1");
 		$(this).addClass("active1");	
+		$(".picture"+which).show().siblings().hide();
 	});
 	
 });

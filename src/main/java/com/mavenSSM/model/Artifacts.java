@@ -56,7 +56,7 @@ public class  Artifacts {
     }
 
     public void setUsed_days(String  Used_days) {
-        this. used_days =  Used_days;
+        this.used_days =  Used_days;
     }
 
     public String getCategory() {

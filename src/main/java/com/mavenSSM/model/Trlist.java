@@ -1,4 +1,4 @@
-package com.mavenSSM.model;
+ package com.mavenSSM.model;
 
 import java.util.Date;
 

@@ -160,9 +160,7 @@ $(function(){
           $("#editError").text("").hide();
           $("#editdate3").trigger(" blur");
           var $inputs= $("#EditTable").find("input");
-          var datas = {"id": $("#editID").val(),"eriref":$inputs[0].value,"registered_by":$inputs[1].value,"registered_date":$inputs[2].value,
-        		  "finished_date":$inputs[3].value,"turnaround_time":$inputs[4].value,
-        		  "answer_code":$inputs[5].value,"valid":$("#editSelect").find(':selected').text(),"heading":$inputs[6].value};
+          
           /*var $inputs =$("#EditTable").find("input");
           if($inputs[0].value== ""){
             showError("Eriref can not be null !");
@@ -186,6 +184,12 @@ $(function(){
           }*/
 
         //  验证完后ajax,最后把$("#cancelButton").click(),写入ajax的success中
+          var datas = {"id": $("#editID").val(),"eriref":$inputs[0].value,"registered_by":$inputs[1].value,"registered_date":$inputs[2].value,
+        		  "finished_date":$inputs[3].value,"turnaround_time":$inputs[4].value,
+        		  "answer_code":$inputs[5].value,"valid":$("#editSelect").find(':selected').text(),"heading":$inputs[6].value};
+          var reg = /\s+/;
+          if(reg.test(datas.finished_date))
+        	  datas.finished_date = "";
           var cpage = parseInt($("#currentPage").val());
           $.ajax({
         	  type: "POST",
@@ -249,11 +253,22 @@ $(function(){
           function createEditModel ($tr){
             var $input= $("#EditTable").find("input");
             var $tds= $tr.find("td");
-            for(var i=0;i<$tds.length;i++){
-              $($input[i]).val($tds[i].innerText);
+            for(var i= 0;i<6;i++){
+                $($input[i]).val($tds[i].innerText);
+              }
+            
+            var options = $("#editSelect").find("option");
+            for(var i = 0;i < options.length;i++){
+            	if($(options[i]).val().trim() == $tds[6].innerText.trim()){
+            		$(options[i]).prop("selected", true);//使table中对应的选择框中内容对应到edit弹框，使选择框中的输入项被正确显示
+            		break;
+            	}
             }
+           $($input[6]).val($tds[7].innerText);
+             
 
           }
+          
 });
     function showError(msg){
         $("#addError").text(msg).show();
@@ -261,6 +276,7 @@ $(function(){
 //用正则表达式对日期值进行划分，使时间自动相减，当结束日期没有输入时，即表示ongoing
    function calDays(d1,d2,which){
      var reg=/^(\d{4})(-|\/)(\d{1,2})(-|\/)(\d{1,2})$/;
+     var white=/\s+/;
      if(reg.test(d1) && reg.test(d2)){
        reg.exec(d1);
        var td1=RegExp.$1 +"-"+ RegExp.$3 +"-"+ RegExp.$5;
@@ -268,7 +284,7 @@ $(function(){
        var td2=RegExp.$1 +"-"+ RegExp.$3 +"-"+ RegExp.$5;
        $("#"+which).val(dateDiff(td2,td1));
      }
-     else if(reg.test(d1) && d2==""){
+     else if(reg.test(d1) && (d2=="" || white.test(d2))){
        $("#"+which).val("ongoing");
      }
 

@@ -17,6 +17,7 @@ public class Listp1114Service {
 		List<Listp1114> list = listDao.getAllLIstp1114();
 		PerChange.change(list);
 		return list;
+		 
 	}
 	
 	public int addNewItem(Listp1114 listp1114){

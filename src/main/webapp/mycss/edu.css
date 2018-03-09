@@ -27,13 +27,14 @@
   cursor:pointer;
 }
 
-#picture1103{
+.picture1103{
   width:100%;
   overflow:hidden;
   background:#fff;
 
 
 }
+ 
 .picture_left .p_left {
   padding-top:85px;
   padding-left: 20px;
@@ -54,6 +55,7 @@
        font-size: 21px;
        font-weight:bold;
        float:left;
+       
 }
 .picture_left {
   //padding:0px 0px 15px;
@@ -83,4 +85,8 @@ textarea {
   border:1px solid transparent;
   border-radius: 4px;
   outline:none;
+  
+}
+.toHidden {
+	display:none;
 }

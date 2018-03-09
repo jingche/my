@@ -12,12 +12,12 @@ import com.mavenSSM.model.Listp1103;
 public class Listp1103Service {
 	@Autowired
 	private Listp1103Dao listDao;
-
 	
 	public List<Listp1103> getAllListp1103(){
 		List<Listp1103>list =  listDao.getAllLIstp1103();
 		PerChange.change(list);
 		return list;
+		 
 	}
 	
 	public int addNewItem(Listp1103 listp1103){
@@ -28,5 +28,4 @@ public class Listp1103Service {
 	public int editItem(Listp1103 listp1103){
 		return listDao.editItem(listp1103);
 	}
-
 }

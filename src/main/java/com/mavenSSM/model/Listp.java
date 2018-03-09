@@ -1,6 +1,6 @@
-package com.mavenSSM.model;
+ package com.mavenSSM.model;
 
-public interface Listp {
+ public interface Listp {
 	 public String getEffectiveness() ;
 
 	 public void setEffectiveness(String Effectiveness);
